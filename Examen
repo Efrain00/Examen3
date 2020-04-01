@@ -1,0 +1,274 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr  1 08:49:52 2020
+
+@author: 
+    Tania
+    Efrain Garcia Garcia 15590287
+
+"""
+"""
+
+ Primos  <generadores>  30 pts
+
+	Realice una generador que devuelva  de todos lo numeros primos
+	existentes de 0 hasta n-1 que cumpla con el siguiente prototipo:
+	
+	def gprimo(N):
+		pass
+	
+	
+	a = gprimo(10)
+	z = [e for e in a]
+	print(z)
+	# [2, 3 ,5 ,7 ]
+"""
+def gprimo(N):
+    i = 1
+    j = 1
+    k = 0
+    n = 0
+    while n < N:
+        while j < 50:
+            if i % j == 0:
+                k = k + 1
+            j = j + 1
+        if k == 2:
+            yield i
+            n = n + 1
+        i = i + 1
+        j = 1
+        k = 0   
+      
+
+a = gprimo(10)
+z = [e for e in a]
+print(z)
+# [2, 3 ,5 ,7 ]
+
+"""
+Bada Boom!!! <generadores> 20 pts
+	
+	Defina un generador que reciba un numero entero positivo mayor a 0 N,
+	dicho generador proporciona numero de 1 hasta N
+	con las siguientes condiciones:
+		1) si es multiplo de 3 coloque la cadena "Bada"
+		2) si es multiplo de 5 coloque la cadena "Boom!!"
+		3) si es multiplo de 3 y 5 coloque "Bada Boom!!"
+		
+	def genBadaBoom(N):
+		pass
+		
+	a = genBadaBoom(10)
+	z = [e for e in a]
+	print(z)
+	#[1,2,"Bada",4,"Boom","Bada",7,8,"Bada","Boom"]
+"""
+
+def genBadaBoom(N):
+    i = 1
+    while i <= N:
+        if i % 3 == 0:
+            yield "Bada"
+        if i % 5 == 0:
+            yield "Boom!!"
+        if i % 3 == 0 and i % 5 == 0:
+            yield "Bada Boom!!"
+        else:
+            yield i
+        i = i + 1
+
+a = genBadaBoom(15)
+z = [e for e in a]
+print(z)
+#[1,2,"Bada",4,"Boom","Bada",7,8,"Bada","Boom"]
+
+"""
+
+
+Combinaciones <Comprensión de listas> 30pts
+
+	Una tienda de ropa quiere saber cuantos conjuntos se pueden crear 
+	a partir de un grupo de 5 camisas (roja,negra,azul,morada y cafe),      
+	4 pantalones (negro, azul, cafe obscuro y crema) y uno de 4 accesorios
+	posibles (cinturon, tirantes, lentes, fedora)
+	
+	1) Obtenga una lista con todos los conjuntos posibles e imprimala en pantalla
+	2) imprima un mensaje donde mencione la cantidad de conjuntos posibles
+	
+"""
+
+C = ["roja", "negra", "azul", "morada", "cafe"]
+P = ["negro", "azul", "cafe", "obscuro", "crema"]
+A = ["cinturon", "tirantes", "lentes", "fedora"]
+
+
+"""
+    
+¿Fedora?  <Comprensión de listas >  15 pts
+
+	Del problema anterior imprima una lista que tenga todos los conjuntos
+	que incluyen un sombrero fedora y tambien despliegue su longitud
+	
+	
+"""
+
+"""
+<Monads>   30 pts
+
+--Lacrimosa - Durch Nacht und Flut --   
+
+Die Suche endet jetzt und hier
+Gestein kalt und nass
+Granit in Deiner Brust
+Der Stein der Dich zerdrückt
+Der Fels der Dich umgibt
+Aus dem gehauen Du doch bist
+
+Despiertate te busco
+Mi corazon abreté te libro
+Elevate mi luz y prende mi llama
+Si a ti, yo se, te encontrare
+
+El fragmento anterior es un canción del duo lacrimosa
+
+Usando Monads obtenga la letra 
+que menos se repite por cada linea y obtenga la probabilidad de sacar dicha
+letra.
+
+Nota: Pueden ayudarse de funciones recursivas y compresiones de lista. 
+
+"""
+print("--Lacrimosa - Durch Nacht und Flut --" )
+C= "Die Suche endet jetzt und hier, Gestein kalt und nass, Granit in Deiner Brust, Der Stein der Dich zerdrückt, Der Fels der Dich umgibt, Aus dem gehauen Du doch bist, Despiertate te busco, Mi corazon abreté te libro, Elevate mi luz y prende mi llama, Si a ti, yo se, te encontrare" 
+def lacri(String):
+	Lista=list(String)
+	Mapeo=map(lambda e: e,Lista)
+	Lmapeo=list(Mapeo)
+	Elementos=unicos2lacri(Lmapeo)
+	repetidos=repetidoslacri(Elementos,Lmapeo)
+	print(repetidos)
+	mr=menorapocal(A)
+	Probabilidad=probalacri(mr,len(Lmapeo))
+	return Probabilidad
+
+def unicoslacri(L,A=[]):
+	if not L:
+		return A
+	if not A:
+		A = []
+	PL = L[0]
+	if PL in A:
+		return unicoslacri(L[1:],A)
+	else:
+		return unicoslacri(L[1:], A + [PL])
+def unicos2lacri(L):
+	return unicoslacri(L,[])
+
+def menorlacri(L):
+	if not L:
+		return 0
+	if len(L) == 1:
+		return L[0]
+	M=menorlacri(L[1:])
+	return L[0] if M > L[0] else M
+
+def repetidoslacri(U,L,AUX=[]):
+	if not U:
+		return
+	A=U[0]
+	B=filter(lambda e: e==A,L)
+	AUX=AUX+[A,len(list(B))]
+	print(AUX)
+	return repetidoslacri(U[1:],L,AUX)
+	return AUX
+
+def probalacri(U,D):
+	X=isinstance(U, int)
+	A=X*100
+	proba=A/D
+	return proba
+
+A=lacri(C)
+print('La letra que menos se repite es:')
+print(' Y su probabilidad de salir entre el resto de caracteres es de: ', A)
+
+
+"""
+<Monads>
+
+--Hole in my soul apocalyptica--  20 pts
+
+There's a hole in my heart, in my life, in my way
+And it's filled with regret and all I did, to push you away
+If there's still a place in your life, in your heart for me
+I would do anything, so don't ask me to leave
+
+I've got a hole in my soul where you use to be
+You're the thorn in my heart and you're killing me
+I wish I could go back and do it all differently
+I wish that I'd treated you differently
+'Cause now there's a hole in my soul where you use to be
+
+El fragmento anterior es un canción del grupo apocalyptica
+
+Usando Monads obtenga la letra 
+que menos se repite de todo el fragmento y obtenga la probabilidad de sacar dicha
+letra.
+
+Nota: Pueden ayudarse de funciones recursivas y compresiones de lista. 
+
+"""
+print("--Hole in my soul apocalyptica-- ")
+C= "There's a hole in my heart, in my life, in my way, And it's filled with regret and all I did, to push you away, If there's still a place in your life, in your heart for me, I would do anything, so don't ask me to leave, I've got a hole in my soul where you use to be, You're the thorn in my heart and you're killing me, I wish I could go back and do it all differently, I wish that I'd treated you differently,'Cause now there's a hole in my soul where you use to be"
+def apocal(String):
+	Lista=list(String)
+	Mapeo=map(lambda e: e,Lista)
+	Lmapeo=list(Mapeo)
+	Elementos=unicos2apocal(Lmapeo)
+	repetidos=repetidosapocal(Elementos,Lmapeo)
+	print(repetidos)
+	mr=menorapocal(A)
+	Probabilidad=probaapocal(mr,len(Lmapeo))
+	return Probabilidad
+
+def unicosapocal(L,A=[]):
+	if not L:
+		return A
+	if not A:
+		A = []
+	PL = L[0]
+	if PL in A:
+		return unicosapocal(L[1:],A)
+	else:
+		return unicosapocal(L[1:], A + [PL])
+def unicos2apocal(L):
+	return unicosapocal(L,[])
+
+def menorapocal(L):
+	if not L:
+		return 0
+	if len(L) == 1:
+		return L[0]
+	M=menorapocal(L[1:])
+	return L[0] if M > L[0] else M
+
+def repetidosapocal(U,L,AUX=[]):
+	if not U:
+		return
+	A=U[0]
+	B=filter(lambda e: e==A,L)
+	AUX=AUX+[A,len(list(B))]
+	print(AUX)
+	return repetidosapocal(U[1:],L,AUX)
+	return AUX
+
+def probaapocal(U,D):
+	X=isinstance(U, int)
+	A=X*100
+	proba=A/D
+	return proba
+
+A=apocal(C)
+print('La letra que menos se repite es:')
+print(' Y su probabilidad de salir entre el resto de caracteres es de: ', A)
